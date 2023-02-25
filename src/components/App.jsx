@@ -26,7 +26,7 @@ export function App() {
         return;
       }
 
-      setIsLoading(!isLoading);
+      setIsLoading(true);
 
       try {
         const response = await fetchImages(query, page);
@@ -46,7 +46,7 @@ export function App() {
       } catch (error) {
         setError(error.message);
       } finally {
-        setIsLoading(isLoading);
+        setIsLoading(false);
       }
     }
 
