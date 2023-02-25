@@ -17,7 +17,6 @@ export function App() {
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
-  const [totalHits, setTotalHits] = useState(null);
   const [largeImageURL, setLargeImageURL] = useState(null);
 
   useEffect(() => {
@@ -32,14 +31,15 @@ export function App() {
         const response = await fetchImages(query, page);
 
         setImages(prevImages => [...prevImages, ...response.hits]);
-        setTotalHits(response.totalHits);
 
         if (page === 1 && response.totalHits !== 0) {
-          toast.success(`Hooray! We found ${response.totalHits} images.`);
+          return toast.success(
+            `Hooray! We found ${response.totalHits} images.`
+          );
         }
 
         if (response.hits.length === 0) {
-          toast.error(
+          return toast.error(
             'Sorry, there are no images matching your search query. Please try again.'
           );
         }
@@ -51,7 +51,7 @@ export function App() {
     }
 
     fetchData();
-  }, [query, page, error, totalHits]);
+  }, [query, page, error]);
 
   const submitForm = value => {
     if (value.trim() === '') {
