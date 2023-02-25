@@ -51,7 +51,7 @@ export function App() {
     }
 
     fetchData();
-  }, [query, page]);
+  }, [query, page, error, totalHits]);
 
   const submitForm = value => {
     if (value.trim() === '') {
